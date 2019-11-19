@@ -9,24 +9,27 @@ const withErrorHandler = (WrappedComponent, axios) => {
             error: null
         };
 
-        componentDidMount() {
+        componentWillMount () {
             axios.interceptors.request.use(req => {
-                this.state({error: null});
+                this.setState({error: null});
                 return req;
             });
             axios.interceptors.response.use(res => res, error => {
-                this.state({error: error})
-            })
+                this.setState({error: error});
+            });
         }
 
         errorConfirmedHandler = () => {
-            this.state({error: null})
+            this.setState({error: null});
         };
 
         render() {
             return (
                 <Auxiliary>
-                    <Modal show={this.state.error} clicked={this.errorConfirmedHandler}>
+                    <Modal
+                        show={this.state.error}
+                        modalClosed={this.errorConfirmedHandler}
+                    >
                         {this.state.error ? this.state.error.message : null}
                     </Modal>
                     <WrappedComponent {...this.props} />
