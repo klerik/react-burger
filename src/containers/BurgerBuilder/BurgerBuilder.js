@@ -34,6 +34,7 @@ class BurgerBuilder extends Component {
             })
             .catch( error => {
                 this.setState( { error: true } );
+				console.log(error);
             } );
     }
 
@@ -108,9 +109,11 @@ class BurgerBuilder extends Component {
 		axios.post( '/orders.json', order )
 			.then( response => {
 				this.setState( { loading: false, purchasing: false } );
+				console.log(response);
 			} )
 			.catch( error => {
 				this.setState( { loading: false, purchasing: false } );
+				console.log(error);
 			} );
     };
 
